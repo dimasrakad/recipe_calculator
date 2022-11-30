@@ -5,7 +5,7 @@ interface IRecipe {
   code: string;
   productName: string;
   date: Date;
-  ingredients: [name: string, quantityPurchase: number, cost: number, quantityUsed: number, totalCost: number];
+  ingredients: [{ name: string; quantityPurchase: number; cost: number; quantityUsed: number; totalCost: number }];
   totalBatchCost: number;
   sellingPrice: number;
 }
@@ -15,8 +15,11 @@ const recipeSchema = new Schema<IRecipe>({
   code: { type: String, required: true },
   productName: { type: String, required: true },
   date: { type: Date, default: Date.now },
-  ingredients: { type: Array, required: true },
-  totalBatchCost: { type: Number, required: true },
+  ingredients: {
+    type: [{ name: String, quantityPurchase: Number, cost: Number, quantityUsed: Number, totalCost: Number }],
+    required: true,
+  },
+  totalBatchCost: { type: Number },
   sellingPrice: { type: Number, required: true },
 });
 
