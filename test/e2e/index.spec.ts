@@ -39,6 +39,11 @@ describe("end to end testing", () => {
         ],
         sellingPrice: 10000,
       });
+    expect(response.body.productName).not.toBeNull();
+    expect(response.body.totalPreserve).not.toBeNull();
+    expect(response.body.sellingPricePerServe).not.toBeNull();
+    expect(response.body.grossProfit).not.toBeNull();
+    expect(response.body.totalGeneratedProfit).not.toBeNull();
     expect(response.statusCode).toEqual(200);
   });
   it("destroy", async () => {
