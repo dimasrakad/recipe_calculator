@@ -33,7 +33,14 @@ export const create = async (req: Request, res: Response, next: NextFunction) =>
     await recipe
       .save()
       .then((recipe) => {
-        res.status(201).json(recipe);
+        const finalResponse = {
+          productName: recipe.productName,
+          totalPreserve: recipe.totalBatchCost,
+          sellingPricePerServe: recipe.sellingPrice,
+          grossProfit: (recipe.sellingPrice - recipe.totalBatchCost)/recipe.sellingPrice * 100,
+          totalGeneratedProfit: recipe.sellingPrice - recipe.totalBatchCost,
+        };
+        res.status(201).json(finalResponse);
       })
       .catch((e) => next(e));
   } catch (error) {
