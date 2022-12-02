@@ -33,30 +33,41 @@ export const update = async (
     const totalGeneratedProfit = req.body.sellingPrice - totalBatchCost;
     const grossProfit = (totalGeneratedProfit / req.body.sellingPrice) * 100;
 
-    await Recipe.findOneAndUpdate(
-      { _id: new ObjectId(req.params.id) },
-      {
-        $set: {
-          productName: req.body.productName,
-          date: Date.now(),
-          ingredients: req.body.ingredients,
-          sellingPrice: req.body.sellingPrice,
-          totalBatchCost: totalBatchCost,
+    // Validation
+    if (ingredients.length <= 0) {
+      res.status(400).json("Error, Ingredient tidak boleh kosong");
+    } else if (req.body.productName === "" || null) {
+      res.status(400).json("Error, productName tidak boleh kosong");
+    } else if (req.body.sellingPrice === "" || null) {
+      res.status(400).json("Error, sellingPrice tidak boleh kosong");
+    } else {
+      // Query
+      await Recipe.findOneAndUpdate(
+        { _id: new ObjectId(req.params.id) },
+        {
+          $set: {
+            productName: req.body.productName,
+            date: Date.now(),
+            ingredients: req.body.ingredients,
+            sellingPrice: req.body.sellingPrice,
+            totalBatchCost: totalBatchCost,
+          },
         },
-      },
-      { new: true }
-    )
-      .then((result) => {
-        const finalResponse = {
-          productName: result?.productName,
-          totalPreserve: totalBatchCost,
-          sellingPricePerServe: result?.sellingPrice,
-          grossProfit: grossProfit,
-          totalGeneratedProfit: totalGeneratedProfit,
-        };
-        res.status(200).json(finalResponse);
-      })
-      .catch((e) => next(e));
+        { new: true }
+      )
+        .then((result) => {
+          // Respons
+          const finalResponse = {
+            productName: result?.productName,
+            totalPreserve: totalBatchCost,
+            sellingPricePerServe: result?.sellingPrice,
+            grossProfit: grossProfit,
+            totalGeneratedProfit: totalGeneratedProfit,
+          };
+          res.status(200).json(finalResponse);
+        })
+        .catch((e) => next(e));
+    }
   } catch (error) {
     next(error);
   }
