@@ -16,7 +16,14 @@ const recipeSchema = new Schema<IRecipe>({
   productName: { type: String, required: true },
   date: { type: Date, default: Date.now },
   ingredients: {
-    type: [{ name: String, quantityPurchase: Number, cost: Number, quantityUsed: Number, totalCost: Number }],
+    type: [
+      { 
+      name: String, 
+      quantityPurchase: Number, 
+      cost: Number,
+      quantityUsed: Number, 
+      totalCost: Number 
+      }],
     required: true,
   },
   totalBatchCost: { type: Number },
