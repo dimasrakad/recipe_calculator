@@ -1,10 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { connect } from "mongoose";
 import Recipe from "../model.js";
 
 export const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    await connect("mongodb://localhost:27017/recipe");
     let result = 0;
 
     const recipe = new Recipe({
