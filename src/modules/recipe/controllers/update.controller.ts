@@ -31,7 +31,7 @@ export const update = async (
       }
     );
     const totalGeneratedProfit = req.body.sellingPrice - totalBatchCost;
-    console.log("Generated : ", totalGeneratedProfit);
+    const grossProfit = (totalGeneratedProfit / req.body.sellingPrice) * 100;
 
     await Recipe.findOneAndUpdate(
       { _id: new ObjectId(req.params.id) },
@@ -46,8 +46,15 @@ export const update = async (
       },
       { new: true }
     )
-      .then((example) => {
-        res.status(200).json(example);
+      .then((result) => {
+        const finalResponse = {
+          productName: result?.productName,
+          totalPreserve: totalBatchCost,
+          sellingPricePerServe: result?.sellingPrice,
+          grossProfit: grossProfit,
+          totalGeneratedProfit: totalGeneratedProfit,
+        };
+        res.status(200).json(finalResponse);
       })
       .catch((e) => next(e));
   } catch (error) {
