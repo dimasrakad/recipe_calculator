@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import { ObjectId } from "mongodb";
-import mongoose from "mongoose";
 import Recipe from "../model.js";
 
 export const update = async (
@@ -9,9 +8,6 @@ export const update = async (
   next: NextFunction
 ) => {
   try {
-    // Connect DB
-    await mongoose.connect("mongodb://localhost:27017/recipe-calculator");
-
     const ingredients = req.body.ingredients;
 
     // Logic
