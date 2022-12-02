@@ -18,7 +18,12 @@ module.exports = {
     },
   },
   rules: {
-    "prettier/prettier": ["error", { printWidth: 120 }],
+    "prettier/prettier": [
+      "error",
+      {
+        endOfLine: "auto",
+      },
+    ],
     "import/order": [
       "error",
       {

@@ -5,7 +5,13 @@ interface IRecipe {
   code: string;
   productName: string;
   date: Date;
-  ingredients: [name: string, quantityPurchase: number, cost: number, quantityUsed: number, totalCost: number];
+  ingredients: [
+    name: string,
+    quantityPurchase: number,
+    cost: number,
+    quantityUsed: number,
+    totalCost: number
+  ];
   totalBatchCost: number;
   sellingPrice: number;
 }
