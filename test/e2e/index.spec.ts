@@ -19,7 +19,31 @@ describe("end to end testing", () => {
   });
   it("update", async () => {
     const app = await createApp();
-    const response = await request(app).patch("/v1/recipe/1");
+    const response = await request(app)
+      .patch("/v1/recipe/63896202ff01f222ee2f9b14")
+      .send({
+        productName: "French fries",
+        ingredients: [
+          {
+            name: "kentang mentah",
+            quantityPurchase: 1000,
+            cost: 27000,
+            quantityUsed: 200,
+          },
+          {
+            name: "saos",
+            quantityPurchase: 1000,
+            cost: 10000,
+            quantityUsed: 10,
+          },
+        ],
+        sellingPrice: 10000,
+      });
+    expect(response.body.productName).not.toBeNull();
+    expect(response.body.totalPreserve).not.toBeNull();
+    expect(response.body.sellingPricePerServe).not.toBeNull();
+    expect(response.body.grossProfit).not.toBeNull();
+    expect(response.body.totalGeneratedProfit).not.toBeNull();
     expect(response.statusCode).toEqual(200);
   });
   it("destroy", async () => {
