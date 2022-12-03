@@ -5,7 +5,6 @@ interface IRecipe {
   code: string;
   productName: string;
   date: Date;
-<<<<<<< HEAD
   ingredients: [
     {
       name: string;
@@ -15,9 +14,6 @@ interface IRecipe {
       totalCost: number;
     }
   ];
-=======
-  ingredients: [{ name: string; quantityPurchase: number; cost: number; quantityUsed: number; totalCost: number }];
->>>>>>> 5a2137b66de3f93710999276f43bd8975dbc3a8d
   totalBatchCost: number;
   sellingPrice: number;
 }
