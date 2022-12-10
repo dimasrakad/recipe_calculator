@@ -29,20 +29,17 @@ export const create = async (req: Request, res: Response, next: NextFunction) =>
       ),
       totalBatchCost: result,
     });
+    
+    const resep = await recipe.save();
 
-    await recipe
-      .save()
-      .then((recipe) => {
-        const finalResponse = {
-          productName: recipe.productName,
-          totalPreserve: recipe.totalBatchCost,
-          sellingPricePerServe: recipe.sellingPrice,
-          grossProfit: (recipe.sellingPrice - recipe.totalBatchCost)/recipe.sellingPrice * 100,
-          totalGeneratedProfit: recipe.sellingPrice - recipe.totalBatchCost,
-        };
-        res.status(201).json(finalResponse);
-      })
-      .catch((e) => next(e));
+    const finalResponse = {
+      productName: resep.productName,
+      totalPreserve: resep.totalBatchCost,
+      sellingPricePerServe: resep.sellingPrice,
+      grossProfit: (resep.sellingPrice - resep.totalBatchCost)/resep.sellingPrice * 100,
+      totalGeneratedProfit: resep.sellingPrice - resep.totalBatchCost,
+    };
+    res.status(201).json(finalResponse);
   } catch (error) {
     next(error);
   }
