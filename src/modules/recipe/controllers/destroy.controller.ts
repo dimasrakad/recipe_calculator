@@ -5,7 +5,7 @@ export const destroy = (req: Request, res: Response, next: NextFunction) => {
   try {
     Recipe.findByIdAndDelete(req.url.toString().substring(1))
       .then(() => {
-        res.status(200).json('Success Delete');
+        res.status(204).json();
       })
       .catch((e) => next(e));
   } catch (error) {

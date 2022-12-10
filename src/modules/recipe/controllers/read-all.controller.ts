@@ -3,13 +3,12 @@ import Recipe from "../model.js";
 
 export const readAll = (req: Request, res: Response, next: NextFunction) => {
   try {
-    Recipe.find()
+    Recipe.find({}, ['code', 'productName', 'totalBatchCost', 'sellingPrice'])
       .then((recipes) => {
         if(recipes.length == 0){
           res.status(200).json('No Data');
         }else{
           res.status(200).json(recipes);
-
         }
       })
       .catch((e) => next(e));
