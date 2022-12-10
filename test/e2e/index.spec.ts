@@ -25,6 +25,6 @@ describe("end to end testing", () => {
   it("destroy", async () => {
     const app = await createApp();
     const response = await request(app).delete("/v1/recipe/1");
-    expect(response.statusCode).toEqual(204);
+    expect(response.statusCode).toEqual(200);
   });
 });

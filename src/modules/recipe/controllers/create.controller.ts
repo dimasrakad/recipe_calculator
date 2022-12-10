@@ -34,6 +34,7 @@ export const create = async (req: Request, res: Response, next: NextFunction) =>
       .save()
       .then((recipe) => {
         const finalResponse = {
+          id: recipe._id,
           productName: recipe.productName,
           totalPreserve: recipe.totalBatchCost,
           sellingPricePerServe: recipe.sellingPrice,
