@@ -32,6 +32,7 @@ export const create = async (req: Request, res: Response, next: NextFunction) =>
     
     const resep = await recipe.save();
 
+<<<<<<< HEAD
     const finalResponse = {
       productName: resep.productName,
       totalPreserve: resep.totalBatchCost,
@@ -40,6 +41,22 @@ export const create = async (req: Request, res: Response, next: NextFunction) =>
       totalGeneratedProfit: resep.sellingPrice - resep.totalBatchCost,
     };
     res.status(201).json(finalResponse);
+=======
+    await recipe
+      .save()
+      .then((recipe) => {
+        const finalResponse = {
+          id: recipe._id,
+          productName: recipe.productName,
+          totalPreserve: recipe.totalBatchCost,
+          sellingPricePerServe: recipe.sellingPrice,
+          grossProfit: (recipe.sellingPrice - recipe.totalBatchCost)/recipe.sellingPrice * 100,
+          totalGeneratedProfit: recipe.sellingPrice - recipe.totalBatchCost,
+        };
+        res.status(201).json(finalResponse);
+      })
+      .catch((e) => next(e));
+>>>>>>> 34443f4bf466d8f5f3bf9804855a3b182779cc67
   } catch (error) {
     next(error);
   }
